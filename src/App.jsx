@@ -110,6 +110,9 @@ function copyLink() {
   navigator.clipboard.writeText(shareLink).then(() => {
     (alert("Link copied!"))
   });
+  if (window.gtag) {
+    gtag('event', 'link_copied', {});
+  }
 }
 
 function shareToX(score) {
@@ -118,13 +121,17 @@ function shareToX(score) {
   const xLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(scoreText)}&url=${encodeURIComponent(shareLink)}`;
   console.log(xLink);
   window.open(xLink, '_blank');
+
+  if (window.gtag) {
+    gtag('event', 'shared_to_x', {});
+  }
 }
 
 function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const scoreFromUrl = urlParams.get("score");
 
-  const [answers, setAnswers] = useState(Array(100).fill(false));
+  const [answers, setAnswers] = useState(Array(questions.length).fill(false));
   const [score, setScore] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
@@ -143,8 +150,7 @@ function App() {
 
     if (window.gtag) {
       gtag('event', 'test_submitted', {
-        value: score,   // user’s test score
-        score: score,   // custom parameter (for GA4 custom dimension)
+        score: newScore,   // custom parameter (for GA4 custom dimension)
       });
     }
   };
@@ -192,7 +198,11 @@ function App() {
           <h1 id="scoreText">{score}</h1>
           <div className="resultButtons">
             <a href="../">
-              <button>Take Again!</button>
+              <button onClick={() => { 
+                if (window.gtag) {
+                  gtag('event', 'shared_to_x', {});
+                }}}
+              >Take Again!</button>
             </a>
             <button onClick={() => shareToX(score)}>Share on X</button>
             <button onClick={copyLink}>Copy Link</button>            
