@@ -140,6 +140,13 @@ function App() {
     setSubmitted(true);
     setScore(newScore);
     window.history.replaceState(null, '', `?score=${newScore}`)
+
+    if (window.gtag) {
+      gtag('event', 'test_submitted', {
+        value: score,   // user’s test score
+        score: score,   // custom parameter (for GA4 custom dimension)
+      });
+    }
   };
 
   useEffect(() => {
