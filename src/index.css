@@ -40,6 +40,7 @@ h1 {
 
 #caution {
   font-weight: bold;
+  margin-bottom: 2rem;
 }
 
 .questions {
@@ -129,5 +130,11 @@ input[type="submit"]:hover {
   }
   input[type="submit"]:hover {
     background-color: #465677;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  :root{
+    font-family: Helvetica, Sans-Serif;
   }
 }
