@@ -156,7 +156,7 @@ function App() {
   };
 
   useEffect(() => {
-    if(scoreFromUrl == score) {
+    if(scoreFromUrl) {
       setSubmitted(true);
       setScore(scoreFromUrl);
     }
