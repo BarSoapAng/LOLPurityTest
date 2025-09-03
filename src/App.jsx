@@ -150,7 +150,7 @@ function App() {
 
     if (window.gtag) {
       gtag('event', 'test_submitted', {
-        score: newScore,   // custom parameter (for GA4 custom dimension)
+        score: newScore,
       });
     }
   };
